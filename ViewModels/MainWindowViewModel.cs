@@ -16,14 +16,15 @@ namespace LibraXray.ViewModels
     internal class MainWindowViewModel : ViewModel
     {
 
-        private ObservableCollection<string> _logStrings = new ObservableCollection<string>() { "Log strings"};
-        public ObservableCollection<string> LogStrings 
-        {   get => LibraXRaySource.XraySettings.LogStrings;
+        private ObservableCollection<string> _logStrings = new ObservableCollection<string>() { "Log strings" };
+        public ObservableCollection<string> LogStrings
+        {
+            get => LibraXRaySource.XraySettings.LogStrings;
             set
             {
                 Set(ref _logStrings, value);
             }
-         
+
         }
 
         public ICommand _closeApplicationCommand;
@@ -56,12 +57,16 @@ namespace LibraXray.ViewModels
                 sp232.Parity = System.IO.Ports.Parity.None;
                 sp232.StopBits = System.IO.Ports.StopBits.One;
                 sp232.NewLine = "\r";
+                sp232.ReadBufferSize = 8;
+                sp232.Open();
+
+                sp232.WriteTimeout = 1000;
+                sp232.ReadTimeout = 1000;
 
                 sp232.WriteLine("STS");
-                var str =  sp232.ReadLine();
+                var str = sp232.ReadLine();
 
 
-                sp232.ReadBufferSize = 8;
                 //LibraXRaySource.Connect();
                 //LogStrings = LibraXRaySource.XraySettings.LogStrings;
 
@@ -76,8 +81,8 @@ namespace LibraXray.ViewModels
         private void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             SerialPort sp = (SerialPort)sender;
-            string indata = sp.ReadExisting();
-            RecivedCommand = indata.Trim();
+            string indata = sp.ReadLine();
+            RecivedCommand = indata;
 
             try
             {
@@ -89,6 +94,8 @@ namespace LibraXray.ViewModels
             {
 
             }
+            sp.DiscardOutBuffer();
+            sp.DiscardInBuffer();
 
         }
 
@@ -98,7 +105,7 @@ namespace LibraXray.ViewModels
         {
             try
             {
-               sp232.Close();
+                sp232.Close();
 
             }
             catch (Exception ex)
@@ -107,9 +114,9 @@ namespace LibraXray.ViewModels
             }
             CommandManager.InvalidateRequerySuggested();
         });
-       
 
-        public LibraDeviceModel LibraXRaySource {get;set;}
+
+        public LibraDeviceModel LibraXRaySource { get; set; }
         public LibraSettings LibraXRaySettings { get; set; }
         public XraySettings XraySettings { get; set; }
 
@@ -119,7 +126,7 @@ namespace LibraXray.ViewModels
         private string _SendCommand = "TYP";
         public string SendCommand
         {
-            get => _SendCommand;         
+            get => _SendCommand;
             set => Set(ref _SendCommand, value);
         }
         private string _RecivedCommand = "---";
@@ -145,7 +152,7 @@ namespace LibraXray.ViewModels
         });
 
 
-        public MainWindowViewModel() 
+        public MainWindowViewModel()
         {
             XraySettings xraySettings = new XraySettings();
             LibraXRaySource = new LibraDeviceModel();
@@ -159,9 +166,9 @@ namespace LibraXray.ViewModels
             LibraXRaySettings.XrayCOM = "COM3";
             LibraXRaySettings.XrayBaudRate = 38400;
             LibraXRaySource.Settings = LibraXRaySettings;
-   
+
         }
 
     }
-    
+
 }
