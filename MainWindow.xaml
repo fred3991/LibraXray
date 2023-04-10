@@ -1,0 +1,90 @@
+﻿<Window x:Class="LibraXray.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LibraXray"
+        xmlns:vm="clr-namespace:LibraXray.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="420" Width="600">
+
+    <Window.DataContext>
+        <vm:MainWindowViewModel></vm:MainWindowViewModel>
+    </Window.DataContext>
+
+    <Grid>
+        
+
+        <StackPanel>
+
+            <Button x:Name="XrayConnectButton" Content="XrayConnect" Command="{Binding ConnectXrayCommand}"		Padding="5"	/>
+
+            <Button x:Name="button2" Content="XrayDisconnect" Command="{Binding DisconnectXrayCommand}" 		Padding="5"  />
+
+            <Button x:Name="button3" Content="Send Command" Command="{Binding SendXrayCommand}" 		Padding="5"  />
+
+
+            <TextBlock Text="Sent Command" Margin="0 5 0 0"/>
+            <TextBox x:Name="textBox1" Text="{Binding SendCommand}" />
+
+            <TextBlock Text="CharReceived" Margin="0 5 0 0"/>
+            <TextBox x:Name="textBox2" Text="{Binding RecivedCommand}" />
+            
+            
+            
+            
+            
+
+            <Border BorderThickness="1" BorderBrush="Black" Margin="0 10" SnapsToDevicePixels="True"	Visibility="Collapsed">
+                <StackPanel>
+                    <UniformGrid Columns="2">
+                        <TextBlock TextAlignment="Center" Margin="3" x:Name="label20" Text="0"/>
+                        <TextBlock TextAlignment="Center" Margin="3" x:Name="label8" Text="Arc Fault"/>
+                        <TextBlock TextAlignment="Center" Margin="3" x:Name="label10" Text="Low mA"/>
+                        <TextBlock TextAlignment="Center" Margin="3" x:Name="label9" Text="High mA"/>
+                        <TextBlock TextAlignment="Center" Margin="3" x:Name="label11" Text="Low kV"/>
+                        <TextBlock TextAlignment="Center" Margin="3" x:Name="label12" Text="High kV"/>
+                        <TextBlock TextAlignment="Center" Margin="3" x:Name="label13" Text="Watchdog"/>
+                        <TextBlock TextAlignment="Center" Margin="3" x:Name="label14" Text="Interlock"/>
+                    </UniformGrid>
+                    <TextBlock TextAlignment="Center" Margin="3" x:Name="label15" Text="Filament Standby"/>
+                    <TextBlock TextAlignment="Center" Margin="3" x:Name="label16" Text="Filament Limit"/>
+                </StackPanel>
+
+            </Border>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Visibility="Collapsed">
+                <TextBox Text="COM"></TextBox>
+                <TextBox Text="{Binding XrayCOM}" MinWidth="400" ></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Visibility="Collapsed" >
+                <TextBox Text="Baudrate"></TextBox>
+                <TextBox Text="{Binding XrayBaudRate}" MinWidth="400" ></TextBox>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch"  >
+                <TextBox x:Name="status" Text="STATUS"></TextBox>
+                <StackPanel Orientation="Vertical">
+                    <TextBox x:Name="logTextBox1"  Text="{Binding LogStrings[0]}"></TextBox>
+                    <TextBox x:Name="logTextBox2"  Text="{Binding LogStrings[1]}"></TextBox>
+                    <TextBox x:Name="logTextBox3"  Text="{Binding LogStrings[2]}"></TextBox>
+                    <TextBox x:Name="logTextBox4"  Text="{Binding LogStrings[3]}"></TextBox>
+                    <TextBox x:Name="logTextBox5"  Text="{Binding LogStrings[4]}"></TextBox>
+                    <TextBox x:Name="logTextBox6"  Text="{Binding LogStrings[5]}"></TextBox>
+                    <TextBox x:Name="logTextBox7"  Text="{Binding LogStrings[6]}"></TextBox>
+                    <TextBox x:Name="logTextBox8"  Text="{Binding LogStrings[7]}"></TextBox>
+                    <TextBox x:Name="logTextBox9"  Text="{Binding LogStrings[8]}"></TextBox>
+                    <TextBox x:Name="logTextBox10"  Text="{Binding LogStrings[9]}"></TextBox>
+                </StackPanel>
+               
+            </StackPanel>
+
+        </StackPanel>
+
+      
+
+
+
+
+    </Grid>
+</Window>
