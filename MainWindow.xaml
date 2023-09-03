@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LibraXray"
         xmlns:vm="clr-namespace:LibraXray.ViewModels"
         mc:Ignorable="d"
-        Title="MainWindow" Height="420" Width="600">
+        Title="MainWindow" Height="640" Width="640">
 
     <Window.DataContext>
         <vm:MainWindowViewModel></vm:MainWindowViewModel>
@@ -15,7 +15,7 @@
     <Grid>
         
 
-        <StackPanel>
+        <StackPanel Width="300" HorizontalAlignment="Left">
 
             <Button x:Name="XrayConnectButton" Content="XrayConnect" Command="{Binding ConnectXrayCommand}"		Padding="5"	/>
 
@@ -81,7 +81,195 @@
 
         </StackPanel>
 
-      
+
+        <Border BorderThickness="2" BorderBrush="Black">
+            <StackPanel Width="300" HorizontalAlignment="Right">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Vertical" Margin="5" Grid.ColumnSpan="2" Grid.Column="0" HorizontalAlignment="Center">
+                        <TextBlock Text="Voltage"></TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Act:" VerticalAlignment="Center" Margin="2"></TextBlock>
+                            <TextBlock VerticalAlignment="Center" Text="ActiveVoltage" FontSize="12" FontFamily="Times" FontStyle="Italic" FontWeight="DemiBold" Margin="2"></TextBlock>
+                            <TextBlock VerticalAlignment="Center" Text="kV" FontSize="12" FontFamily="Times" FontStyle="Italic" FontWeight="DemiBold" Margin="2"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Tube:" VerticalAlignment="Center" Margin="5"></TextBlock>
+                            <TextBlock VerticalAlignment="Center" Text="TubeVoltage" FontSize="12" FontFamily="Times" FontStyle="Italic" FontWeight="DemiBold" Margin="2"></TextBlock>
+                            <TextBlock VerticalAlignment="Center" Text="kV" FontSize="12" FontFamily="Times" FontStyle="Italic" FontWeight="DemiBold" Margin="2"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Set:" VerticalAlignment="Center" Margin="5"></TextBlock>
+                            <TextBlock VerticalAlignment="Center" Text="{Binding SetVoltage}" FontSize="12" FontFamily="Times" FontStyle="Italic" FontWeight="DemiBold" Margin="5"></TextBlock>
+                            <StackPanel Orientation="Vertical">
+                                <Button Content="+" Command="{Binding UpVoltageCommand}"></Button>
+                                <Button Content="-" Command="{Binding DownVoltageCommand}"></Button>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+
+
+
+                    <StackPanel Orientation="Vertical" Margin="5" Grid.ColumnSpan="2" Grid.Column="2" HorizontalAlignment="Center">
+                        <TextBlock Text="Current"></TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Act:" VerticalAlignment="Center" Margin="5"></TextBlock>
+                            <TextBlock VerticalAlignment="Center" Text="ActiveCurrent" FontSize="12" FontFamily="Times" FontStyle="Italic" FontWeight="DemiBold" Margin="5"></TextBlock>
+                            <TextBlock VerticalAlignment="Center" Text="uM" FontSize="12" FontFamily="Times" FontStyle="Italic" FontWeight="DemiBold" Margin="2"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Tube:" VerticalAlignment="Center" Margin="5"></TextBlock>
+                            <TextBlock VerticalAlignment="Center" Text="TubeCurrent" FontSize="12" FontFamily="Times" FontStyle="Italic" FontWeight="DemiBold" Margin="5"></TextBlock>
+                            <TextBlock VerticalAlignment="Center" Text="uM" FontSize="12" FontFamily="Times" FontStyle="Italic" FontWeight="DemiBold" Margin="2"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Set:" VerticalAlignment="Center" Margin="5"></TextBlock>
+                            <TextBlock VerticalAlignment="Center" Text="{Binding SetCurrent}" FontSize="12" FontFamily="Times" FontStyle="Italic" FontWeight="DemiBold" Margin="2"></TextBlock>
+                            <StackPanel Orientation="Vertical">
+                                <Button Content="+" Command="{Binding UpCurrentCommand}"></Button>
+                                <Button Content="-" Command="{Binding DownCurrentCommand}"></Button>
+                            </StackPanel>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <StackPanel Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="4">
+                        <StackPanel Orientation="Vertical" Grid.Row="2" Grid.ColumnSpan="4">
+                            <Rectangle Height="20" Fill="Green"></Rectangle>
+                            <TextBlock Text="STATUS" HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="6">
+                            <Border BorderBrush="Red" BorderThickness="2">
+                                <Button Content="XRay On"></Button>
+
+                            </Border>
+                            <Border BorderBrush="GreenYellow" BorderThickness="2">
+                                <Button Content="XRay Off"></Button>
+                            </Border>
+
+                            <Border BorderBrush="Gold" BorderThickness="2">
+                                <Button Content="Beep 5 sec" Command="{Binding BeepXrayCommand}"></Button>
+                            </Border>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Focus Mode" HorizontalAlignment="Left" Margin="10 5 25 0"></TextBlock>
+                            <ComboBox HorizontalAlignment="Right" Margin="10 5 25 0">
+                                <ComboBoxItem>Small</ComboBoxItem>
+                                <ComboBoxItem IsSelected="True">Middle</ComboBoxItem>
+                                <ComboBoxItem>Large</ComboBoxItem>
+                            </ComboBox>
+                        </StackPanel>
+
+                        <TextBlock Text="Status callback" HorizontalAlignment="Center"> </TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="STS : " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="STS Value: " HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="SPH : " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="SPH Value: " HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="SAR : " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="SAR Value: " HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="SNR : " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="SAR Value: " HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="SHV : " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="SHV Value: " HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="SCU : " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="SCU Value: " HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="SPV : " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="SPV Value: " HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="SVI : " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="SVI Value: " HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="SWS : " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="SWS Value: " HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="SWE : " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="SWE Value: " HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="SFC : " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="SFC Value: " HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="SIN : " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="SIN Value: " HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="STM : " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="STM Value: " HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="SXT : " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="SXT Value: " HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="SER : " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="SER Value: " HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="SBT : " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="SBT Value: " HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="TYP : " HorizontalAlignment="Center"></TextBlock>
+                            <TextBlock Text="TYP Value: " HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
+
+
+
+                    </StackPanel>
+
+
+                </Grid>
+
+            </StackPanel>
+        </Border>
+        
+       
 
 
 
